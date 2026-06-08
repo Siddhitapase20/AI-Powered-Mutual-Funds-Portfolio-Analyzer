@@ -1,38 +1,346 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --ink: #0D0D0D;
+  --paper: #F7F4EE;
+  --cream: #EDE9E0;
+  --gold: #C9A84C;
+  --green: #1A6B3C;
+  --green-light: #D4EDDF;
+  --red: #C0392B;
+  --red-light: #FDECEA;
+  --blue: #1A3A6B;
+  --blue-light: #D6E4F7;
+  --muted: #6B6660;
+  --border: #D8D3C8;
+  --font-display: 'Instrument Serif', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* buttons */
+.btn{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 20px;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+.btn-primary {
+  background: var(--ink);
+  color: var(--paper);
+}
+.btn-primary:hover {
+  background: #222;
+  transform: translateY(-1px);
+}
+.btn-outline{
+  background: transparent;
+  border: 1pxx solid var(--border);
+  color: var(--ink);
+}
+.btn-outline:hover {
+  border-color: var(--ink);
+  background: var(--cream);
+}
+.btn-gold {
+  background: var(--gold);
+  color: #fff;
+}
+.btn-gold:hover {
+  background: #b8943f;
+}
+.btn-red {
+  background: var(--red);
+  color: #fff;
+}
+.btn-full {
+  width: 100%;
+  justify-content: center;
+  padding: 12px;
+  font-size: 15px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* FORM */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+.form-group label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: var(--font-body);
+  background: #fff;
+  color: var(--ink);
+  outline: none;
+  transition: border 0.2s;
+}
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--gold);
+}
+.form-group .error {
+  font-size: 12px;
+  color: var(--red);
+  margin-top: 4px;
+}
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.grid3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+.grid4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* CARDS */
+.card{
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+.card-title {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 1rem;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-title span {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+/* METRICS */
+.metric {
+  background:#fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+.metric-lbl {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.metric-val {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+}
+.metric-change {
+  font-size: 12px;
+  margin-top: 4px;
+}
+.metric-change.up  {
+  color: var(--green);
+}
+.metric-change.dn {
+  color: var(--red);
+}
+
+/* BADGES */
+.cat-badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+.cat-eq {
+  background: var(--green-light);
+  color: var(--green);
+}
+.cat-debt {
+  background: var(--blue-light);
+  color: var(--blue);
+}
+.cat-hybrid {
+  background: #FEF3E2;
+  color: #92600A;
+}
+.cat-elss {
+  background: #F3E8FF;
+  color: #6B21A8;
+}
+.cat-index {
+  background: #E8F4FD;
+  color: #1565C0;
+}
+
+/* TABLES */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.data-table th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.data-table td {
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--cream);
+  vertical-align: middle;
+}
+.data-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* CHIPS */
+.chip-group {
+  display: flex;
+  flex-wrap:wrap;
+  gap: 8px;
+}
+.chip {
+  padding: 7px 16px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: #fff;
+}
+.chip-active{
+  background: var (--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+/* COLORS */
+.pos {
+  color: var(--green);
+}
+.neg{
+  color: var(--red);
+}
+.text-muted {
+  color: var(--muted);
+}
+.text-gold{
+  color: var(--gold);
+}
+
+/* ALERTS */
+.alert{
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  font-size: 13px;
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.alert-warning{
+  background: var(--red-light);
+  border: 1px solid #f5c6c6;
+  color: var(--red);
+}
+.alert-success {
+  background: var(--green-light);
+  border: 1px solid #a8d5b8;
+  color:var(--green);
+}
+.alert-info{
+  background: var(--blue-light);
+  border: 1px solid #b8cfe8;
+  color: var(--blue);
+}
+
+/* LOADING */
+.loading{
+  display:flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  height: 200px;
+  font-size: 14px;
+  color: var(--muted);
 }
 
-.App-link {
-  color: #61dafb;
+/* SLIDER */
+.slider-group{
+  margin-bottom: 1.25rem;
+}
+.slider-group label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.slider-group label span{
+  font-family: var(--font-mono);
+  color: var(--gold);
+}
+input[type=range] {
+  width: 100%;
+  -webkit-appearance: none;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+input[type=range] ::-webkit-slider-thumb{
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: var(--ink);
+  border-radius: 50%;
+  cursor: pointer;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+@keyfames fadeUp {
+  from { 
+    opacity: 0;
+    transform: translateY(16px);
+  }to{
+    opacity:1;
+    transform:translateY(0);
   }
 }
+.fadeUp{
+  animation: fadeUp 0.4s ease forward;
+}
+@keyfames spin {
+  to{
+    transform:rotate(360deg);
+  }
+}
+.spinner{
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border);
+  border-top-color: var(--ink);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+
+
