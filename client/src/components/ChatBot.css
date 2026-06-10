@@ -1,0 +1,105 @@
+.chatbot-panel{
+    position: fixed;
+    bottom: 6rem;
+    right: 2rem;
+    width: 340px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: 0 16px 60px rgba(0,0,0,0.15);
+    z-index: 200;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: 480px;
+
+}
+.chatbot-header{
+    background: var(--ink);
+    color: #F7F4EE;
+    padding: 1rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items:center ;
+
+}
+.chatbot-header h4{
+    font-size: 14px;
+    font-weight: 500;
+}
+.chatbot-header small {
+    font-size: 11px;
+    color: #aaa;
+}
+.chatbot-close{
+    background: none;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+    font-size: 18px;
+}
+.chatbot-messages{
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+.chat-msg{
+    max-width: 85%;
+    font-size: 13px;
+    line-height: 1.55;
+    padding: 9px 12px;
+    border-radius: 10px;
+
+}
+.chat-msg.bot{
+    background: var(--cream);
+    color: var(--ink);
+    border-bottom-left-radius: 3px;
+    align-self: flex-start;
+
+}
+.chat-msg.user{
+    background: var(--ink);
+    color: #F7F4EE;
+    border-top-right-radius: 3px;
+    align-self: flex-end;
+}
+.chatbot-input.typing{
+    font-style: italic;
+    color: var(--muted);
+}
+.chatbot-input-row{
+    display: flex;
+    gap: 8px;
+    padding: 0.75rem;
+    border-top: 1px solid var(--border);
+}
+.chatbot-input-row input{
+    flex:1;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    outline: none;
+}
+.chatbot-input-row input:focus{
+    border-color: var(--gold);
+}
+.chatbot-input-row button{
+    background: var(--ink);
+    color: #F7F4EE;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-size: 13px;
+}
+.chatbot-input-row button:disabled{
+    opacity: 0.5;
+    cursor: not-allowed;
+}
