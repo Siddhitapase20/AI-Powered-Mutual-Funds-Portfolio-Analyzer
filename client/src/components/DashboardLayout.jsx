@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Sidebar from '/Sidebar';
+import Sidebar from './Sidebar';
 import ChatBot from './ChatBot';
 import './DashboardLayout.css';
 

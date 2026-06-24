@@ -58,7 +58,7 @@ function Login(){
                     </div>
                     <button className='btn btn-primary btn-full' type="submit" disabled={loading}>
                         {loading ? 'Logging in...' : 'Login→'}
-                    </button>s
+                    </button>
                 </form>
                 <p className='auth-switch'>
                     Don't have an account? <Link to="/register">Register here</Link>

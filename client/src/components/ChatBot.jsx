@@ -18,27 +18,27 @@ function ChatBot({onClose}){
         bottomRef.current?.scrollIntoView({behavior: 'smooth'});
     }, [messages]);
 
-    const sendMessage = async()=>{
+    const sendMessage = async () => {
         if (!input.trim() || loading) return;
 
-        const useMsg = {role:'user',text:input};
-        setMessages(prev => [...prev,userMsg]);
+        const userMessage = input.trim();
+        const userMsg = { role: 'user', text: userMessage};
+        setMessages(prev => [...prev, userMsg]);
         setInput('');
         setLoading(true);
 
-        try{
-            const res = await api.post('/ai/chat',{message:input});
-            setMessages(prev=>[
-                ...prev,
-                {role: 'bot', text: res.data.reply}
-            ]);
-        } catch (err) {
+        try {
+            const res = await api.post('/ai/chat', {message: userMessage});
             setMessages(prev => [
                 ...prev,
-                {role: 'bot', text:'Sorry, I could not process that. Please try again.' }
-
+                { role: 'bot', text: res.data.reply }
             ]);
-        }finally{
+        } catch (err) {
+            setMessages (prev => [
+                ...prev,
+                {role: 'bot', text: 'Sorry, could not process that. Please try again.'}
+            ]);
+        } finally {
             setLoading(false);
         }
     };
