@@ -1,5 +1,5 @@
 import React from "react";
-function FundComparision(){
+function FundComparison(){
     return <div style={{ padding: '2rem'}}> Onboarding - coming soon</div>;
 }
-export default FundComparision;
+export default FundComparison;

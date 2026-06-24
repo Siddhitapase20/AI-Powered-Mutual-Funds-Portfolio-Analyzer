@@ -11,7 +11,7 @@ import Dashboard from './pages/Dashboard';
 import Portfolio from './pages/Portfolio';
 import Performance from './pages/Performance';
 import OverlapChecker from './pages/OverlapChecker';
-import FundComparision from './pages/FundComparison';
+import FundComparison from './pages/FundComparison';
 import SIPCalculator from './pages/SIPCalculator';
 import RiskProfile from './pages/RiskProfile';
 import ExportPDF from './pages/ExportPDF';
@@ -54,7 +54,7 @@ function App(){
           } />
           <Route path="/compare" element={
             <ProtectedRoute>
-              <FundComparision />
+              <FundComparison />
             </ProtectedRoute>
           } />
           <Route path="/sip" element={

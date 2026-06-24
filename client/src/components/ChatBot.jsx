@@ -1,6 +1,6 @@
 import React, {useState, useRef, useEffect} from 'react';
 import api from '../utils/api';
-import './ChatBot';
+import './ChatBot.css';
 
 function ChatBot({onClose}){
     const [messages, setMessages]=useState([
@@ -52,7 +52,7 @@ function ChatBot({onClose}){
         <button className="chatbot-close" onClick={onClose}>✕</button>
         </div>
         <div className="chatbot-message">
-        {message.map((msg,i)=>(
+        {messages.map((msg,i)=>(
             <div key={i} className={`chat-msg ${msg.role}`}>
                 {msg.text}
             </div>
@@ -75,3 +75,4 @@ function ChatBot({onClose}){
 </div>
     );
 }
+export default ChatBot;

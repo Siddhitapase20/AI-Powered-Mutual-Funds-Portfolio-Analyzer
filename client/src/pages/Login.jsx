@@ -65,6 +65,6 @@ function Login(){
                 </p>
             </div>
         </div>
-    );s
+    );
 }
 export default Login;
