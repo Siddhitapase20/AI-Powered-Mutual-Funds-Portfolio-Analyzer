@@ -51,7 +51,7 @@ function Sidebar(){
 
             <div className="sidebar-user">
                 <div className="sidebar-avatar">
-                    {user?.name?.chartAt(0).toUpperCase()||'U'}
+                    {user?.name?.charAt(0).toUpperCase()||'U'}
                 </div>
             <div>
                 <div className="sidebar-name">{user?.name||'User'}</div>

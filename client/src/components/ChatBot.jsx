@@ -50,7 +50,7 @@ function ChatBot({onClose}){
         </div>
         <button className="chatbot-close" onClick={onClose}>✕</button>
         </div>
-        <div className="chatbot-message">
+        <div className="chatbot-messages">
         {messages.map((msg,i)=>(
             <div key={i} className={`chat-msg ${msg.role}`}>
                 {msg.text}

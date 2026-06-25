@@ -19,7 +19,7 @@ function Register(){
             const mockUser = { name: form.name, email: form.email};
             const mockToken = 'mock-token-123';
             login(mockUser,mockToken);
-            navigate('/onboarding');
+            navigate('/dashboard');
             setLoading(false);
         }, 800);
     };
