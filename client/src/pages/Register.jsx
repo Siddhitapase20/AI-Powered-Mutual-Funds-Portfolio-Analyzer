@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import api from '../utils/api';
 import './Auth.css';
 
 function Register(){
@@ -15,15 +14,14 @@ function Register(){
         e.preventDefault();
         setError('');
         setLoading(true);
-        try{
-            const res = await api.post('/auth/register',form);
-            login(res.data.user, res.data.token);
-            navigate('/onBoarding');
-        } catch (err) {
-            setError(err.response?.data?.message || 'Registration failed. Please try again.');
-        } finally{
+        
+        setTimeout(() => {
+            const mockUser = { name: form.name, email: form.email};
+            const mockToken = 'mock-token-123';
+            login(mockUser,mockToken);
+            navigate('/onboarding');
             setLoading(false);
-        }
+        }, 800);
     };
 
     return(

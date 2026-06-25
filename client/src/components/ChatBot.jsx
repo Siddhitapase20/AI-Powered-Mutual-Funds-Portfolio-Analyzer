@@ -1,5 +1,5 @@
 import React, {useState, useRef, useEffect} from 'react';
-import api from '../utils/api';
+
 import './ChatBot.css';
 
 function ChatBot({onClose}){
@@ -19,29 +19,28 @@ function ChatBot({onClose}){
     }, [messages]);
 
     const sendMessage = async () => {
-        if (!input.trim() || loading) return;
+  if (!input.trim() || loading) return;
 
-        const userMessage = input.trim();
-        const userMsg = { role: 'user', text: userMessage};
-        setMessages(prev => [...prev, userMsg]);
-        setInput('');
-        setLoading(true);
+  const userMessage = input.trim();
+  setMessages(prev => [...prev, { role: 'user', text: userMessage }]);
+  setInput('');
+  setLoading(true);
 
-        try {
-            const res = await api.post('/ai/chat', {message: userMessage});
-            setMessages(prev => [
-                ...prev,
-                { role: 'bot', text: res.data.reply }
-            ]);
-        } catch (err) {
-            setMessages (prev => [
-                ...prev,
-                {role: 'bot', text: 'Sorry, could not process that. Please try again.'}
-            ]);
-        } finally {
-            setLoading(false);
-        }
-    };
+  // Temporary mock response until backend is ready
+  const mockReplies = [
+    'Based on your moderate risk profile, I recommend adding Parag Parikh Flexi Cap to reduce overlap.',
+    'Your XIRR of 16.2% is above the large-cap category average. Good performance overall.',
+    'To build ₹50L in 10 years at 12% CAGR, you need a monthly SIP of ₹22,244.',
+    'Your portfolio has 42% overlap between Mirae and Axis Bluechip. Consider replacing one of them.',
+    'For 80C tax saving, Mirae Asset ELSS Tax Saver is a good option with strong 5Y returns.',
+  ];
+
+  setTimeout(() => {
+    const reply = mockReplies[Math.floor(Math.random() * mockReplies.length)];
+    setMessages(prev => [...prev, { role: 'bot', text: reply }]);
+    setLoading(false);
+  }, 1000);
+};
     return(
         <div className="chatbot-panel">
         <div className="chatbot-header">

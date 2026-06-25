@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import DashboardLayout from '../components/DashboardLayout';
-import api from '../utils/api';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
 const growthData = [
@@ -30,19 +29,39 @@ function Dashboard() {
   }, []);
 
   const fetchDashboard = async () => {
-    try {
-      const [summaryRes, insightsRes] = await Promise.all([
-        api.get('/portfolio/summary'),
-        api.get('/ai/insights'),
-      ]);
-      setSummary(summaryRes.data);
-      setInsights(insightsRes.data.insights || []);
-    } catch (err) {
-      console.error('Dashboard fetch error:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  try {
+    // Temporary mock data until backend is ready
+    setSummary({
+      totalInvested: 100000,
+      currentValue: 118000,
+      totalReturn: 18.0,
+      xirr: 16.2,
+      fundCount: 3,
+      healthScore: 79,
+    });
+    setInsights([
+      {
+        icon: '⚠️',
+        title: 'Overlap Alert',
+        text: 'Mirae Asset and Axis Bluechip share 42% holdings. Consider replacing Axis with Parag Parikh Flexi Cap.',
+      },
+      {
+        icon: '📈',
+        title: 'Missing Mid-Cap',
+        text: 'Your portfolio is 100% large-cap. Adding a mid-cap index fund can boost long-term returns.',
+      },
+      {
+        icon: '💰',
+        title: 'Tax Saving',
+        text: 'Invest ₹1.5L in ELSS before March 31 to save ₹46,800 in tax under Section 80C.',
+      },
+    ]);
+  } catch (err) {
+    console.error('Dashboard fetch error:', err);
+  } finally {
+    setLoading(false);
+  }
+};
 
   const getGreeting = () => {
     const hour = new Date().getHours();
