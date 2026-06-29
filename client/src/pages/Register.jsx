@@ -14,6 +14,15 @@ function Register(){
         e.preventDefault();
         setError('');
         setLoading(true);
+        try {
+            const res = await api.post('auth/register',form);
+            login(res.data.user, res.data.token);
+            navigate('/onboarding');
+        } catch (err) {
+            setError(err.response?.data?.message || 'Registration failed. Please try again ')
+        } finally {
+            setLoading(false);
+        }
         
         setTimeout(() => {
             const mockUser = { name: form.name, email: form.email};
