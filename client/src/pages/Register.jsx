@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import api from '../utils/api';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './Auth.css';
@@ -6,7 +7,7 @@ import './Auth.css';
 function Register(){
     const [form, setForm] =useState({name: '',email:'', password:''});
     const [error, setError]= useState('');
-    const [loading, setLoading]=useState('');
+    const [loading, setLoading]=useState(false);
     const {login} =useAuth();
     const navigate = useNavigate();
 
@@ -24,13 +25,7 @@ function Register(){
             setLoading(false);
         }
         
-        setTimeout(() => {
-            const mockUser = { name: form.name, email: form.email};
-            const mockToken = 'mock-token-123';
-            login(mockUser,mockToken);
-            navigate('/dashboard');
-            setLoading(false);
-        }, 800);
+        
     };
 
     return(

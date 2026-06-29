@@ -16,7 +16,7 @@ function Login(){
         setError('');
         setLoading(true);
         try{
-            const res = await api.post('/auth/login');
+            const res = await api.post('/auth/login',form);
             login(res.data.user, res.data.token);
             navigate('/dashboard');
         } catch(err){
