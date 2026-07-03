@@ -4,6 +4,16 @@ const pool = require('../db/index');
 const auth = require('../middleware/authMiddleware');
 require('dotenv').config();
 
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+
+const genAI = new GoogleGenerativeAI(
+  process.env.GEMINI_API_KEY
+);
+
+const model = genAI.getGenerativeModel({
+  model: "gemini-2.5-flash"
+});
+
 // ── BUILD PROMPT FROM USER DATA ──
 async function buildUserContext(userId) {
   const userResult = await pool.query(
@@ -25,6 +35,15 @@ async function buildUserContext(userId) {
 
   const user = userResult.rows[0];
   const funds = fundsResult.rows;
+  if (!user) {
+  return {
+    user: {},
+    funds: [],
+    totalInvested: 0,
+    currentValue: 0,
+    context: "No user profile available."
+  };
+}
 
   const totalInvested = funds.reduce((s, f) => s + parseFloat(f.invested_amount), 0);
   const currentValue = funds.reduce((s, f) => s + parseFloat(f.current_value || f.invested_amount), 0);
@@ -50,29 +69,20 @@ ${funds.map(f => `- ${f.fund_name} (${f.category}): Invested ₹${parseFloat(f.i
   };
 }
 
-// ── CALL CLAUDE API ──
-async function callClaude(prompt) {
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': process.env.CLAUDE_API_KEY,
-      'anthropic-version': '2023-06-01',
-    },
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-6',
-      max_tokens: 1024,
-      messages: [{ role: 'user', content: prompt }],
-    }),
-  });
+async function callGemini(prompt) {
+  try {
+    const result = await model.generateContent(prompt);
 
-  const data = await response.json();
+    if (!result.response) {
+      throw new Error("No response from Gemini");
+    }
 
-  if (!response.ok) {
-    throw new Error(data.error?.message || 'Claude API error');
+    return result.response.text();
+
+  } catch (error) {
+    console.error("Gemini Error:", error.message);
+    throw new Error("Gemini API error");
   }
-
-  return data.content[0].text;
 }
 
 // ── GET AI RECOMMENDATIONS ──
@@ -96,7 +106,7 @@ Be specific with real Indian fund names (Mirae, Axis, HDFC, SBI, Parag Parikh, e
 Format your response clearly with these section headers.
 End with: DISCLAIMER: This is AI-generated advice for informational purposes only. Not SEBI-registered financial advice.`;
 
-    const recommendation = await callClaude(prompt);
+    const recommendation = await callGemini(prompt);
 
     // Save recommendation to DB
     await pool.query(
@@ -143,7 +153,7 @@ Example format:
 
 Return ONLY the JSON array. No other text.`;
 
-    const raw = await callClaude(prompt);
+    const raw = await callGemini(prompt);
 
     // Parse JSON safely
     const cleaned = raw.replace(/```json|```/g, '').trim();
@@ -185,7 +195,7 @@ Answer in 2-3 sentences. Be specific, practical, and reference their actual port
 Use Indian mutual fund terminology (XIRR, CAGR, NAV, SIP, ELSS, etc.).
 End with a brief disclaimer if giving specific fund advice.`;
 
-    const reply = await callClaude(prompt);
+    const reply = await callGemini(prompt);
     res.json({ reply });
 
   } catch (err) {
