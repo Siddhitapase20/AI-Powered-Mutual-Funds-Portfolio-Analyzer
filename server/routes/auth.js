@@ -27,7 +27,7 @@ router.post('/register', async(req,res) => {
     const result = await pool.query(
       `INSERT INTO users (name, email, password) 
       VALUES ($1,$2,$3)
-      RETURNING IdleDeadline, name, email`,
+      RETURNING id, name, email`,
       [name,email,hashedPassword]
     );
 
@@ -51,7 +51,7 @@ router.post('/register', async(req,res) => {
 });
 
 // login
-router.post('login',async(req,res) => {
+router.post('/login',async(req,res) => {
   const {email, password} = req.body;
 
   if(!email || !password){
@@ -157,6 +157,7 @@ router.put('/profile', require('../middleware/authMiddleware'), async (req, res)
     res.json({ message: 'Profile updated successfully' });
 
   } catch (err) {
+
     console.error('Update profile error:', err);
     res.status(500).json({ message: 'Server error.' });
   }
