@@ -5,21 +5,31 @@
 }
 
 .dash-main{
-    flex:1;
-    padding:35px;
+
+flex:1;
+padding:40px;
+background:#F4F7FB;
 }
 
 .dash-header{
-    margin-bottom:30px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:35px;
 }
 
 .dash-title{
-    font-size:34px;
-    margin-bottom:8px;
+
+font-size:40px;
+font-weight:700;
+margin-bottom:6px;
 }
 
 .dash-sub{
-    color:#666;
+
+font-size:16px;
+color:#6B7280;
 }
 
 .dash-content{
