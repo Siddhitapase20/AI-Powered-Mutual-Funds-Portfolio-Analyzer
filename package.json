@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "lucide-react": "^1.24.0",
     "react-icons": "^5.7.0"
   }
 }

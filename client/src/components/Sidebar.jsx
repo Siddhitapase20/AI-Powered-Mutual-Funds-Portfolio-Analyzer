@@ -7,8 +7,8 @@ import {
   FiPieChart,
   FiTrendingUp,
   FiLayers,
-  FiGitCompare,
-  FiCalculator,
+  FiShuffle,
+  FiDollarSign,
   FiShield,
   FiDownload
 } from "react-icons/fi";
@@ -45,7 +45,7 @@ const navItems = [
       {
         to: "/compare",
         label: "Fund Comparison",
-        icon: <FiGitCompare />
+        icon: <FiShuffle />
       }
     ]
   },
@@ -55,7 +55,7 @@ const navItems = [
       {
         to: "/sip",
         label: "SIP Calculator",
-        icon: <FiCalculator />
+        icon: <FiDollarSign />
       },
       {
         to: "/risk",
