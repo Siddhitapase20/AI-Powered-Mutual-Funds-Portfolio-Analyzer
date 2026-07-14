@@ -103,58 +103,65 @@ export default function Dashboard() {
       </div>
 
       {/* Chart + Allocation */}
-      <div className="grid-2-1" style={{ marginBottom: 20 }}>
-        <div className="card">
-          <div className="card-title">
-            Portfolio growth
-            <span className="card-subtitle">vs Nifty 50 benchmark</span>
-          </div>
-          <ResponsiveContainer width="100%" height={220}>
-            <LineChart data={GROWTH_DATA} margin={{ top: 5, right: 5, bottom: 0, left: 0 }}>
-              <XAxis dataKey="m" tick={{ fontSize: 11, fill: '#9CA3AF' }} axisLine={false} tickLine={false} />
-              <YAxis hide />
-              <Tooltip content={<CustomTooltip />} />
-              <Line type="monotone" dataKey="p" stroke="#00B386" strokeWidth={2.5} dot={false} name="Portfolio" />
-              <Line type="monotone" dataKey="b" stroke="#E8EAED" strokeWidth={1.5} strokeDasharray="4 3" dot={false} name="Nifty 50" />
-            </LineChart>
-          </ResponsiveContainer>
-          <div style={{ display: 'flex', gap: 16, marginTop: 8 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12 }}><span style={{ width: 14, height: 2, background: '#00B386', display: 'inline-block', borderRadius: 1 }} />Portfolio</div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--muted)' }}><span style={{ width: 14, height: 2, background: '#E8EAED', display: 'inline-block', borderRadius: 1 }} />Nifty 50</div>
-          </div>
-        </div>
-
-        <div className="card">
-          <div className="card-title">Asset allocation</div>
-          {allocData.length > 0 ? (
-            <>
-              <PieChart width={160} height={160} style={{ margin: '0 auto' }}>
-                <Pie data={allocData} cx={75} cy={75} innerRadius={45} outerRadius={70} dataKey="value" paddingAngle={3}>
-                  {allocData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
-                </Pie>
-              </PieChart>
-              <div style={{ display: 'grid', gap: 6 }}>
-                {allocData.map((item, i) => (
-                  <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-                      <span style={{ width: 8, height: 8, borderRadius: '50%', background: COLORS[i % COLORS.length], display: 'inline-block' }} />
-                      {item.name}
-                    </div>
-                    <span style={{ fontWeight: 600 }}>
-                      {((item.value / (summary?.totalInvested || 1)) * 100).toFixed(0)}%
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </>
-          ) : (
-            <div className="empty-state" style={{ padding: '20px 0' }}>
-              <div className="empty-state-icon">🥧</div>
-              <div className="empty-state-sub">Add funds to see allocation</div>
-            </div>
-          )}
-        </div>
+{/* Chart + Allocation */}
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 280px', gap: 16, marginBottom: 20 }}>
+  <div className="card">
+    <div className="card-title">
+      Portfolio growth
+      <span className="card-subtitle">vs Nifty 50 benchmark</span>
+    </div>
+    <ResponsiveContainer width="100%" height={200}>
+      <LineChart data={GROWTH_DATA} margin={{ top: 5, right: 5, bottom: 0, left: 0 }}>
+        <XAxis dataKey="m" tick={{ fontSize: 11, fill: '#9CA3AF' }} axisLine={false} tickLine={false} />
+        <YAxis hide />
+        <Tooltip content={<CustomTooltip />} />
+        <Line type="monotone" dataKey="p" stroke="#00B386" strokeWidth={2.5} dot={false} name="Portfolio" />
+        <Line type="monotone" dataKey="b" stroke="#E8EAED" strokeWidth={1.5} strokeDasharray="4 3" dot={false} name="Nifty 50" />
+      </LineChart>
+    </ResponsiveContainer>
+    <div style={{ display: 'flex', gap: 16, marginTop: 8 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12 }}>
+        <span style={{ width: 14, height: 2, background: '#00B386', display: 'inline-block', borderRadius: 1 }} />Portfolio
       </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--muted)' }}>
+        <span style={{ width: 14, height: 2, background: '#E8EAED', display: 'inline-block', borderRadius: 1 }} />Nifty 50
+      </div>
+    </div>
+  </div>
+
+  <div className="card">
+    <div className="card-title">Asset allocation</div>
+    {allocData.length > 0 ? (
+      <>
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 8 }}>
+          <PieChart width={140} height={140}>
+            <Pie data={allocData} cx={65} cy={65} innerRadius={38} outerRadius={60} dataKey="value" paddingAngle={3}>
+              {allocData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
+            </Pie>
+          </PieChart>
+        </div>
+        <div style={{ display: 'grid', gap: 7 }}>
+          {allocData.map((item, i) => (
+            <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ width: 8, height: 8, borderRadius: '50%', background: COLORS[i % COLORS.length], display: 'inline-block', flexShrink: 0 }} />
+                <span style={{ color: '#6B7280' }}>{item.name}</span>
+              </div>
+              <span style={{ fontWeight: 700 }}>
+                {((item.value / (summary?.totalInvested || 1)) * 100).toFixed(0)}%
+              </span>
+            </div>
+          ))}
+        </div>
+      </>
+    ) : (
+      <div style={{ textAlign: 'center', padding: '24px 0', color: '#9CA3AF', fontSize: 13 }}>
+        <div style={{ fontSize: 28, marginBottom: 8 }}>🥧</div>
+        Add funds to see allocation
+      </div>
+    )}
+  </div>
+</div>
 
       {/* Holdings mini table */}
       {funds.length > 0 && (
