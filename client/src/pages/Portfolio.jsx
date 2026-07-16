@@ -11,12 +11,7 @@ export default function Portfolio() {
 
   useEffect(() => { fetchPortfolio(); }, []);
 
-  const [newFund, setNewFund] = useState({
-  fund_name: '',
-  category: 'Equity',
-  sub_category: '',
-  invested_amount: '',
-});
+  
 
   const fetchPortfolio = async () => {
     try {

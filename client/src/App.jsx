@@ -2,6 +2,8 @@ import React from 'react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import SIPTracker from './pages/SIPTracker';
+import FundSearch from './pages/FundSearch';
 
 import Landing from './pages/Landing';
 import Login from './pages/Login';
@@ -15,6 +17,7 @@ import FundComparison from './pages/FundComparison';
 import SIPCalculator from './pages/SIPCalculator';
 import RiskProfile from './pages/RiskProfile';
 import ExportPDF from './pages/ExportPDF';
+
 
 function App(){
   return (
@@ -70,6 +73,16 @@ function App(){
           <Route path="/export" element={
             <ProtectedRoute>
               <ExportPDF />
+            </ProtectedRoute>
+          } />
+          <Route path="/sip-tracker" element={
+            <ProtectedRoute>
+              <SIPTracker />
+            </ProtectedRoute>
+          } />
+          <Route path="/fund-search" element={
+            <ProtectedRoute>
+              <FundSearch />
             </ProtectedRoute>
           } />
         </Routes>

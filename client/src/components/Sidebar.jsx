@@ -13,68 +13,26 @@ import {
   FiDownload
 } from "react-icons/fi";
 
-const navItems = [
-  {
-    section: "Overview",
-    links: [
-      {
-        to: "/dashboard",
-        label: "Dashboard",
-        icon: <FiHome />
-      },
-      {
-        to: "/portfolio",
-        label: "Portfolio",
-        icon: <FiPieChart />
-      }
-    ]
-  },
-  {
-    section: "Analysis",
-    links: [
-      {
-        to: "/performance",
-        label: "Fund Performance",
-        icon: <FiTrendingUp />
-      },
-      {
-        to: "/overlap",
-        label: "Overlap Checker",
-        icon: <FiLayers />
-      },
-      {
-        to: "/compare",
-        label: "Fund Comparison",
-        icon: <FiShuffle />
-      }
-    ]
-  },
-  {
-    section: "Planning",
-    links: [
-      {
-        to: "/sip",
-        label: "SIP Calculator",
-        icon: <FiDollarSign />
-      },
-      {
-        to: "/risk",
-        label: "Risk Profile",
-        icon: <FiShield />
-      }
-    ]
-  },
-  {
-    section: "Export",
-    links: [
-      {
-        to: "/export",
-        label: "Export PDF",
-        icon: <FiDownload />
-      }
-    ]
-  }
-];
+const NAV = [
+  { section: 'Overview', links: [
+    { to: '/dashboard', icon: '▦', label: 'Dashboard' },
+    { to: '/portfolio', icon: '◈', label: 'Portfolio' },
+    { to: '/fund-search', icon: '🔍', label: 'Fund Search' },  // NEW
+  ]},
+  { section: 'Analysis', links: [
+    { to: '/performance', icon: '↗', label: 'Fund Performance' },
+    { to: '/overlap', icon: '⊙', label: 'Overlap Checker' },
+    { to: '/compare', icon: '⇌', label: 'Fund Comparison' },
+  ]},
+  { section: 'Planning', links: [
+    { to: '/sip-tracker', icon: '📋', label: 'SIP Tracker' },   // NEW
+    { to: '/sip', icon: '◎', label: 'SIP Calculator' },
+    { to: '/risk', icon: '⚖', label: 'Risk Profile' },
+  ]},
+  { section: 'Export', links: [
+    { to: '/export', icon: '↓', label: 'Export PDF' },
+  ]},
+];;
 
 function Sidebar(){
     const { user, logout}=useAuth();
