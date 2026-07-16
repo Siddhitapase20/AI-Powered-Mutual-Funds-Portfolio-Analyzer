@@ -1,17 +1,31 @@
-.sidebar{
-    width:260px;
-    min-height:100vh;
+.sidebar {
+  background: #0C0E14;
+  width: 240px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #1E2028;
+  overflow: hidden;        /* no scroll at all */
+}
 
-    background:#0B1220;
-    color:white;
+.sidebar-nav {
+  flex: 1;
+  padding: 12px 0;
+  overflow-y: auto;        /* only nav scrolls if needed */
+  overflow-x: hidden;
+  scrollbar-width: none;   /* hide scrollbar Firefox */
+}
 
-    display:flex;
-    flex-direction:column;
+.sidebar-nav::-webkit-scrollbar {
+  display: none;           /* hide scrollbar Chrome */
+}
 
-    position:sticky;
-    top:0;
-
-    border-right:1px solid rgba(255,255,255,.08);
+.sidebar-footer {
+  padding: 16px 20px;
+  border-top: 1px solid #1E2028;
+  flex-shrink: 0;          /* footer never gets pushed out */
 }
 .sidebar-logo{
     font-size:28px;

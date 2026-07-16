@@ -11,6 +11,13 @@ export default function Portfolio() {
 
   useEffect(() => { fetchPortfolio(); }, []);
 
+  const [newFund, setNewFund] = useState({
+  fund_name: '',
+  category: 'Equity',
+  sub_category: '',
+  invested_amount: '',
+});
+
   const fetchPortfolio = async () => {
     try {
       const res = await api.get('/portfolio/summary');
@@ -95,31 +102,100 @@ export default function Portfolio() {
 
       {/* Add fund form */}
       {showAdd && (
-        <div className="card" style={{ marginBottom: 16 }}>
-          <div className="card-title">Add new fund</div>
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr auto', gap: 12, alignItems: 'flex-end' }}>
-            <div className="form-group" style={{ margin: 0 }}>
-              <label className="form-label">Fund name</label>
-              <input className="form-input" type="text" placeholder="e.g. Mirae Asset Large Cap" value={newFund.fund_name}
-                onChange={e => setNewFund({ ...newFund, fund_name: e.target.value })} />
-            </div>
-            <div className="form-group" style={{ margin: 0 }}>
-              <label className="form-label">Category</label>
-              <select className="form-input" value={newFund.category} onChange={e => setNewFund({ ...newFund, category: e.target.value })}>
-                <option>Equity</option><option>Debt</option><option>Hybrid</option><option>ELSS</option><option>Index</option>
-              </select>
-            </div>
-            <div className="form-group" style={{ margin: 0 }}>
-              <label className="form-label">Amount (₹)</label>
-              <input className="form-input" type="number" placeholder="50000" value={newFund.invested_amount}
-                onChange={e => setNewFund({ ...newFund, invested_amount: e.target.value })} />
-            </div>
-            <button className="btn btn-primary" onClick={handleAdd} disabled={adding}>
-              {adding ? '...' : 'Save'}
-            </button>
-          </div>
-        </div>
-      )}
+  <div className="card" style={{ marginBottom: 16 }}>
+    <div className="card-title">Add new fund</div>
+    <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 12, marginBottom: 12 }}>
+      <div className="form-group" style={{ margin: 0 }}>
+        <label className="form-label">Fund name</label>
+        <input
+          className="form-input"
+          type="text"
+          placeholder="e.g. Mirae Asset Large Cap Fund"
+          value={newFund.fund_name}
+          onChange={e => setNewFund({ ...newFund, fund_name: e.target.value })}
+        />
+      </div>
+      <div className="form-group" style={{ margin: 0 }}>
+        <label className="form-label">Category</label>
+        <select
+          className="form-input"
+          value={newFund.category}
+          onChange={e => setNewFund({ ...newFund, category: e.target.value })}
+        >
+          <option value="Equity">Equity</option>
+          <option value="Debt">Debt</option>
+          <option value="Hybrid">Hybrid</option>
+          <option value="ELSS">ELSS</option>
+          <option value="Index">Index</option>
+        </select>
+      </div>
+    </div>
+
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
+      <div className="form-group" style={{ margin: 0 }}>
+        <label className="form-label">Sub-category</label>
+        <select
+          className="form-input"
+          value={newFund.sub_category || ''}
+          onChange={e => setNewFund({ ...newFund, sub_category: e.target.value })}
+        >
+          <option value="">Select sub-category</option>
+          {newFund.category === 'Equity' && <>
+            <option value="Large Cap">Large Cap</option>
+            <option value="Mid Cap">Mid Cap</option>
+            <option value="Small Cap">Small Cap</option>
+            <option value="Flexi Cap">Flexi Cap</option>
+            <option value="Multi Cap">Multi Cap</option>
+            <option value="Sectoral">Sectoral / Thematic</option>
+            <option value="International">International</option>
+          </>}
+          {newFund.category === 'ELSS' && <>
+            <option value="ELSS Tax Saver">ELSS Tax Saver</option>
+          </>}
+          {newFund.category === 'Index' && <>
+            <option value="Nifty 50">Nifty 50</option>
+            <option value="Nifty Next 50">Nifty Next 50</option>
+            <option value="Nifty Midcap 150">Nifty Midcap 150</option>
+            <option value="Nifty Smallcap 250">Nifty Smallcap 250</option>
+            <option value="Sensex">Sensex</option>
+          </>}
+          {newFund.category === 'Debt' && <>
+            <option value="Liquid">Liquid</option>
+            <option value="Overnight">Overnight</option>
+            <option value="Short Duration">Short Duration</option>
+            <option value="Medium Duration">Medium Duration</option>
+            <option value="Corporate Bond">Corporate Bond</option>
+            <option value="Gilt">Gilt</option>
+          </>}
+          {newFund.category === 'Hybrid' && <>
+            <option value="Balanced Advantage">Balanced Advantage</option>
+            <option value="Aggressive Hybrid">Aggressive Hybrid</option>
+            <option value="Conservative Hybrid">Conservative Hybrid</option>
+            <option value="Arbitrage">Arbitrage</option>
+          </>}
+        </select>
+      </div>
+
+      <div className="form-group" style={{ margin: 0 }}>
+        <label className="form-label">Amount invested (₹)</label>
+        <input
+          className="form-input"
+          type="number"
+          placeholder="e.g. 50000"
+          value={newFund.invested_amount}
+          onChange={e => setNewFund({ ...newFund, invested_amount: e.target.value })}
+        />
+      </div>
+    </div>
+
+    <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
+      <button className="btn btn-outline" onClick={() => setShowAdd(false)}>Cancel</button>
+      <button className="btn btn-primary" onClick={handleAdd} disabled={adding}>
+        {adding ? 'Saving...' : '+ Save fund'}
+      </button>
+    </div>
+  </div>
+)}
 
       {/* Holdings table */}
       <div className="card">
