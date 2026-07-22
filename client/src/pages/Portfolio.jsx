@@ -23,6 +23,7 @@ export default function Portfolio() {
       setLoading(false);
     }
   };
+  
 
   const handleAdd = async () => {
     if (!newFund.fund_name || !newFund.invested_amount) return;
