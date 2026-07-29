@@ -8,6 +8,8 @@ const fundsRoutes = require('./routes/funds');
 const aiRoutes = require('./routes/ai');
 const sipRoutes = require('./routes/sip');
 const fundSearchRoutes = require('./routes/fundSearch');
+const goalRoutes = require('./routes/goals');
+const rebalancingRoutes = require('./routes/rebalancing');
 
 
 const app = express();
@@ -22,6 +24,8 @@ app.use('/api/funds', fundsRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/sip', sipRoutes);
 app.use('/api/fund-search', fundSearchRoutes);
+app.use('/api/goals', goalRoutes);
+app.use('/api/rebalancing', rebalancingRoutes);
 
 //Health Check
 app.get('/', (req, res) =>{
