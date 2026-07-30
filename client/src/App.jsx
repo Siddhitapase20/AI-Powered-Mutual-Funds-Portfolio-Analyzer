@@ -17,6 +17,9 @@ import FundComparison from './pages/FundComparison';
 import SIPCalculator from './pages/SIPCalculator';
 import RiskProfile from './pages/RiskProfile';
 import ExportPDF from './pages/ExportPDF';
+import GoalTracker from './pages/GoalTracker';
+import Rebalancing from './pages/Rebalancing';
+import TaxHarvesting from './pages/TaxHarvesting';
 
 
 function App(){
@@ -85,6 +88,15 @@ function App(){
               <FundSearch />
             </ProtectedRoute>
           } />
+          <Route path="/goals" element={
+  <ProtectedRoute><GoalTracker /></ProtectedRoute>
+}/>
+<Route path="/rebalancing" element={
+  <ProtectedRoute><Rebalancing /></ProtectedRoute>
+}/>
+<Route path="/tax" element={
+  <ProtectedRoute><TaxHarvesting /></ProtectedRoute>
+}/>
         </Routes>
       </Router>
     </AuthProvider>
